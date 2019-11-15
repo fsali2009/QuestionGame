@@ -1,0 +1,80 @@
+/*
+for (var i = 0; i < questions.length; i += ) {
+    question = questions[i][0]; // Two dementional array so need outter and inner element
+    answer = questions[i][1]; // The answer is at questinon one... because of the prompt you asked on 1.
+    response = parseInt(prompt(question)); // you could wrap the parseInt around the prompt question. instead of 2 lines of code.
+    if (response === answer) {
+        correctAnswers += 1;
+    }
+}
+
+*/
+var questions = [
+    ['How many states are in the US?', 50],
+    ['Recently when did the Cubs win the World Series?', 2016],
+    ['How many cats do we have?', 3],
+    ['What year is this year?', 2019]
+];
+
+var correctAnswers = 0;
+var question;
+var answer;
+var response;
+var html;
+var correct = []; //empty arrays to add the correct or wrong questions.  Stored with push. in arrays
+var wrong = [];
+
+function print(message) {
+    var outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = message;
+}
+
+/* below is a more advanced way to pin point where on html file you are wanting to put your display.  
+We created a print function so that it only prints what we want and not all the page as in Document.write.  
+we pinpoint the element by id.  This case 'output'.  The we create we use our variable we created "ouputDiv" and pinpoint the HTML using outputDiv.innerHTML and tell it to use out mesage to display
+
+*/
+
+function print(message) {
+    var outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = message;
+}
+
+//for loop for asking questions and then second if statement for collecting the answers correct and wrong array.
+
+
+for (var i = 0; i < questions.length; i++) {
+    question = questions[i][0];
+    answer = questions[i][1];
+    response = prompt(question);
+    response = parseInt(response);
+    if (response === answer) {
+        correctAnswers += 1;
+        correct.push(question); // this pushes and save the reponse if correct.
+    } else {
+        wrong.push(question); // this pushes and save the reponse if correct.
+    }
+}
+
+
+//create an ordered list for all the questions to be displayed on the page/ report.
+
+//function for building the HTML
+
+function buildList(arr) { // arr is just a name we gave parameter.
+    var listHTML = '<ol>';
+    for (var i = 0; i < arr.length; i++) { //goes through the arr array
+        listHTML += '<li>' + arr[i] + '</li>'; // opens tag, puts the current line and closes tage
+    }
+    listHTML += '</ol>'; // closing orderd list tag
+    return listHTML; // returns the info.
+}
+
+
+
+html = 'You got ' + correctAnswers + ' question(s) right.';
+html += '<h2> You have these qustions correct: </h2>';
+html += buildList(correct);
+html += '<h2> You have these qustions wrong: </h2>';
+html += buildList(wrong);
+print(html);
